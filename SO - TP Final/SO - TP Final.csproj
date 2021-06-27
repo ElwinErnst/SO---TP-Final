@@ -44,8 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controladores\Controladores.cs" />
-    <Compile Include="Entities\Accion.cs" />
-    <Compile Include="Entities\Animal.cs" />
+    <Compile Include="Entidades\Accion.cs" />
+    <Compile Include="Entidades\Animal.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

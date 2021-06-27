@@ -1,23 +1,23 @@
 ﻿using System.Collections.Generic;
 
-namespace SO___TP_Final.Entities
+namespace SO___TP_Final.Entidades
 {
     class Animal
     {
-        int mile;
+        int milla;
         List<Accion> acciones;
 
         public Animal()
         {
             this.acciones = new List<Accion>();
         }
-        public Animal(int mile, List<Accion> acciones)
+        public Animal(int milla, List<Accion> acciones)
         {
-            this.mile = mile;
+            this.milla = milla;
             this.acciones = acciones;
         }
 
-        public int Mile { get => mile; set => mile = value; }
+        public int Milla { get => milla; set => milla = value; }
         internal List<Accion> Acciones { get => acciones; set => acciones = value; }
     }
 }

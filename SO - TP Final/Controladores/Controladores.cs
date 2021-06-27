@@ -1,22 +1,25 @@
 ﻿using System;
 using System.Threading;
-using SO___TP_Final.Entities;
+using SO___TP_Final.Entidades;
 
 namespace SO___TP_Final.Controladores 
 {
 
     class Control
     {
+        public static object control_lock = new object();
+
         public static Animal tortuga = new Animal();
         public static Animal liebre = new Animal();
+
         public static Random r_liebre = new Random();
         public static Random r_tortuga = new Random();
 
         public static void inicializandoCorredores()
         {
 
-            liebre.Mile = 0;
-            tortuga.Mile = 0;
+            liebre.Milla = 0;
+            tortuga.Milla = 0;
 
             Accion a = new Accion("Avance rapido", 3);
             Accion b = new Accion("Resbalo", -6);
@@ -43,20 +46,23 @@ namespace SO___TP_Final.Controladores
         {
             while(true)
             {
-                if (liebre.Mile >= 70)
+                lock (control_lock)
                 {
-                    Console.WriteLine("gano la liebre");
-                    break;
-                }
+                    if (liebre.Milla >= 70)
+                    {
+                        Console.WriteLine("gano la liebre");
+                        break;
+                    }
+                    Accion aux = generarAccion(liebre);//necesario ya que utilizo tanto en la linea de abajo para asignarle el novimiento al objeto Animal como en la impresion del nombre de la accion
+                    liebre.Milla += aux.Movimiento;
 
-                liebre.Mile += generarAccionLiebre().Movement;
-
-                if (liebre.Mile < 1)
-                {
-                    liebre.Mile = 0;
+                    if (liebre.Milla < 1)
+                    {
+                        liebre.Milla = 0;
+                    }
+                    Console.WriteLine($"L: {liebre.Milla}, {aux.Nombre}");
+                    Thread.Sleep(1000);//para simular un trabajo
                 }
-                Console.WriteLine($"L: {liebre.Mile}, {generarAccionLiebre().Name}");
-                Thread.Sleep(1000);
             }
         }
 
@@ -64,69 +70,80 @@ namespace SO___TP_Final.Controladores
         {
             while (true)
             {
-                if (tortuga.Mile >= 70)
+                lock (control_lock)
                 {
-                    Console.WriteLine("gano la tortuga");
-                    break;
-                }
+                    if (tortuga.Milla >= 70)
+                    {
+                        Console.WriteLine("gano la tortuga");
+                        break;
+                    }
 
-                tortuga.Mile += generarAccionTortuga().Movement;
+                    Accion aux = generarAccion(tortuga);
+                    tortuga.Milla += aux.Movimiento;
 
-                if (tortuga.Mile < 1)
-                {
-                    tortuga.Mile = 0;
+                    if (tortuga.Milla < 1)
+                    {
+                        tortuga.Milla = 0;
+                    }
+                    Console.WriteLine($"T: {tortuga.Milla}, {aux.Nombre}");
+                    Thread.Sleep(1000);
                 }
-                Console.WriteLine($"T: {tortuga.Mile}, {generarAccionTortuga().Name}");
-                Thread.Sleep(1000);
             }
         }
 
-        static Accion generarAccionLiebre()
+        static Accion generarAccion(Animal a)
         {
-            Accion sig_accion_liebre = new Accion();
-            int accion_liebre = r_liebre.Next(1, 101);
+            if(a == tortuga)
+            {
+                Accion sig_accion_tortuga = new Accion();
+                int accion_tortuga = r_tortuga.Next(1, 101);
 
-            if (accion_liebre >= 1 && accion_liebre < 20)
-            {
-                sig_accion_liebre = liebre.Acciones[0];
+                if (accion_tortuga >= 1 && accion_tortuga < 50)
+                {
+                    sig_accion_tortuga = tortuga.Acciones[0];
+                }
+                else if (accion_tortuga >= 50 && accion_tortuga < 70)
+                {
+                    sig_accion_tortuga = tortuga.Acciones[1];
+                }
+                else if (accion_tortuga >= 70 && accion_tortuga < 100)
+                {
+                    sig_accion_tortuga = tortuga.Acciones[2];
+                }
+                return sig_accion_tortuga;
             }
-            else if (accion_liebre >= 20 && accion_liebre < 40)
-            {
-                sig_accion_liebre = liebre.Acciones[1];
-            }
-            else if (accion_liebre >= 40 && accion_liebre < 50)
-            {
-                sig_accion_liebre = liebre.Acciones[2];
-            }
-            else if (accion_liebre >= 50 && accion_liebre < 80)
-            {
-                sig_accion_liebre = liebre.Acciones[3];
-            }
-            else if (accion_liebre >= 80 && accion_liebre < 100)
-            {
-                sig_accion_liebre = liebre.Acciones[4];
-            }
-            return sig_accion_liebre;
-        }
 
-        static Accion generarAccionTortuga()
-        {
-            Accion sig_accion_tortuga = new Accion();
-            int accion_tortuga = r_tortuga.Next(1, 101);
+            if (a == liebre)
+            {
+                Accion sig_accion_liebre = new Accion();
+                int accion_liebre = r_liebre.Next(1, 101);
 
-            if (accion_tortuga >= 1 && accion_tortuga < 50)
-            {
-                sig_accion_tortuga = tortuga.Acciones[0];
+                if (accion_liebre >= 1 && accion_liebre < 20)
+                {
+                    sig_accion_liebre = liebre.Acciones[0];
+                }
+                else if (accion_liebre >= 20 && accion_liebre < 40)
+                {
+                    sig_accion_liebre = liebre.Acciones[1];
+                }
+                else if (accion_liebre >= 40 && accion_liebre < 50)
+                {
+                    sig_accion_liebre = liebre.Acciones[2];
+                }
+                else if (accion_liebre >= 50 && accion_liebre < 80)
+                {
+                    sig_accion_liebre = liebre.Acciones[3];
+                }
+                else if (accion_liebre >= 80 && accion_liebre < 100)
+                {
+                    sig_accion_liebre = liebre.Acciones[4];
+                }
+                return sig_accion_liebre;
             }
-            else if (accion_tortuga >= 50 && accion_tortuga < 70)
+            else
             {
-                sig_accion_tortuga = tortuga.Acciones[1];
+                return null;
             }
-            else if (accion_tortuga >= 70 && accion_tortuga < 100)
-            {
-                sig_accion_tortuga = tortuga.Acciones[2];
-            }
-            return sig_accion_tortuga;
         }
     }
 }
