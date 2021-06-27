@@ -7,7 +7,7 @@ namespace SO___TP_Final.Controladores
 
     class Control
     {
-        public static object control_lock = new object();
+        //public static object control_lock = new object();
 
         public static Animal tortuga = new Animal();
         public static Animal liebre = new Animal();
@@ -46,8 +46,8 @@ namespace SO___TP_Final.Controladores
         {
             while(true)
             {
-                lock (control_lock)
-                {
+                //lock (control_lock)
+                //{
                     if (liebre.Milla >= 70)
                     {
                         Console.WriteLine("gano la liebre");
@@ -62,7 +62,7 @@ namespace SO___TP_Final.Controladores
                     }
                     Console.WriteLine($"L: {liebre.Milla}, {aux.Nombre}");
                     Thread.Sleep(1000);//para simular un trabajo
-                }
+                //}
             }
         }
 
@@ -70,8 +70,8 @@ namespace SO___TP_Final.Controladores
         {
             while (true)
             {
-                lock (control_lock)
-                {
+                //lock (control_lock)
+                //{
                     if (tortuga.Milla >= 70)
                     {
                         Console.WriteLine("gano la tortuga");
@@ -87,7 +87,7 @@ namespace SO___TP_Final.Controladores
                     }
                     Console.WriteLine($"T: {tortuga.Milla}, {aux.Nombre}");
                     Thread.Sleep(1000);
-                }
+                //}
             }
         }
 
