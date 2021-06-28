@@ -7,6 +7,7 @@ namespace SO___TP_Final.Controladores
 
     class Control
     {
+        //objeto para el lock
         //public static object control_lock = new object();
 
         public static Animal tortuga = new Animal();
