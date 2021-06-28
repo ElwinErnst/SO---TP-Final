@@ -1,4 +1,4 @@
-﻿namespace SO___TP_Final.Entidades
+﻿namespace SOTpFinal.Entidades
 {
     class Accion
     {

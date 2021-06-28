@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading;
-using SO___TP_Final.Controladores;
+using SOTpFinal.Controladores;
 
-namespace SO___TP_Final
+namespace SOTpFinal
 {
     /*
      BIBLIOGRAFIA

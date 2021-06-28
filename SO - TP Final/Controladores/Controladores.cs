@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading;
-using SO___TP_Final.Entidades;
+using SOTpFinal.Entidades;
 
-namespace SO___TP_Final.Controladores 
+namespace SOTpFinal.Controladores 
 {
 
     class Control

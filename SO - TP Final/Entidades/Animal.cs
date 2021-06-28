@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace SO___TP_Final.Entidades
+namespace SOTpFinal.Entidades
 {
     class Animal
     {
